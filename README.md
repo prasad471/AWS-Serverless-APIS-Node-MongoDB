@@ -6,7 +6,7 @@ Prerequisite
 - Create an [AWS Account](https://aws.amazon.com/
 )
 - Install [Node.js](https://nodejs.org/en/download/)
-- Create a [MongoDB cluster] using MongoDB Atlas (https://www.mongodb.com/cloud/atlas)
+- Create a MongoDB cluster using  [MongoDB Atlas] (https://www.mongodb.com/cloud/atlas)
 - Install serverless Node module globally(Run npm install serverless -g)
 - Configure your AWS accesskey and secret access key in serverless
  (https://serverless.com/framework/docs/providers/aws/guide/credentials/)
