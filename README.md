@@ -10,7 +10,8 @@ Prerequisite
 - Install [Node.js](https://nodejs.org/en/download/)
 - Create a [MongoDB cluster] using MongoDB Atlas (https://www.mongodb.com/cloud/atlas)
 - Install serverless Node module globally(Run npm install serverless -g)
-- Configure your AWS accesskey and secret access key in serverless(https://serverless.com/framework/docs/ providers/aws/guide/credentials/)
+- Configure your AWS accesskey and secret access key in serverless
+ (https://serverless.com/framework/docs/providers/aws/guide/credentials/)
 
 
 What's Here
@@ -44,7 +45,7 @@ Resources:
 
 # Tutorial
 
-After installing all the pre reqs and cloning the repo you can do the following to get the project up and running. 
+After installing all the Prerequisite and cloning the repo you can do the following to get the project up and running. 
 
 
 Running the project locally
@@ -60,7 +61,12 @@ You can run:
 
     2. sls offline start
 
-Serverless will run your apis locally, you can test your apis using postman.
+Serverless will run your apis locally,
+
+you can test your apis using postman.
+
 After testing the APIS locally,
+
 Just run: 
+
     sls deploy
