@@ -1,0 +1,49 @@
+service: rest-api
+
+provider:
+  name: aws
+  runtime: nodejs12.x # set node.js runtime
+  memorySize: 128 # set the maximum memory of the Lambdas in Megabytes
+  timeout: 10 # the timeout is 10 seconds (default is 6 seconds)
+  stage: dev # setting the env stage to dev, this will be visible in the routes
+  region: us-east-1
+
+functions: # add 4 functions for CRUD
+  create:
+    handler: index.createTask # point to exported create function in index.js
+    events:
+      - http:
+          path: tasks # path will be domain.name.com/dev/tasks
+          method: post
+          cors: true
+  getOne:
+    handler: index.getTask
+    events:
+      - http:
+          path: tasks/{id} # path will be domain.name.com/dev/tasks/1
+          method: get
+          cors: true
+  getAll:
+    handler: index.getAllTasks # path will be domain.name.com/dev/tasks
+    events:
+     - http:
+         path: tasks
+         method: get
+         cors: true    
+  update:
+    handler: index.updateTask # path will be domain.name.com/dev/tasks/1
+    events:
+     - http:
+         path: tasks/{id}
+         method: put
+         cors: true
+  delete:
+    handler: index.deleteTask
+    events:
+     - http:
+         path: tasks/{id} # path will be domain.name.com/dev/notes/1
+         method: delete
+         cors: true
+
+plugins:
+- serverless-offline # adding the plugin to be able to run the offline emulation
