@@ -1,5 +1,3 @@
-# AWS-Serverless-APIS-Node-MongoDB
-
 Serverless APIS Using Node and MongoDB
 ==============================================
 
