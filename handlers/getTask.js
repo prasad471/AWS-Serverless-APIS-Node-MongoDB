@@ -1,28 +1,26 @@
-const { connectToDataBase } = require('../db');
-const Task = require('../models/Task');
+const { connectToDataBase } = require("../db");
+const Task = require("../models/Task");
 
-exports.getTask = (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-
-  connectToDataBase()
-    .then(() => {
-        Task.findById(event.pathParameters.id)
-        .then(task => callback(null, {
-          statusCode: 200,
-          body: JSON.stringify(task)
-        }))
-        .catch(err => callback(null, {
-          statusCode: err.statusCode || 500,
-          headers: { 'Content-Type': 'text/plain' },
-          body: `Could not retrieve task due to ${err} `
-        }));
-    })
-    .catch(err => {
-        console.log("database connection error", err);
-        callback(null, {
-            statusCode: err.statusCode || 500,
-            headers: { 'Content-Type': 'text/plain' },
-            body: 'Could not create the Task.'
-          })
-    })
+exports.getTask = async (event) => {
+  try {
+    await connectToDataBase();
+    const task = await Task.findById(event.pathParameters.id);
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+      },
+      body: JSON.stringify(task),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+      },
+      body: JSON.stringify(error),
+    };
+  }
 };

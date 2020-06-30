@@ -1,28 +1,26 @@
-const { connectToDataBase } = require('../db');
-const Task = require('../models/Task');
+const { connectToDataBase } = require("../db");
+const Task = require("../models/Task");
 
-exports.deleteTask = (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-
-  connectToDataBase()
-    .then(() => {
-        Task.findByIdAndRemove(event.pathParameters.id)
-        .then(task => callback(null, {
-          statusCode: 200,
-          body: JSON.stringify({ message: 'Removed task with id: ' + task._id, task: note })
-        }))
-        .catch(err => callback(null, {
-          statusCode: err.statusCode || 500,
-          headers: { 'Content-Type': 'text/plain' },
-          body: `Could not remove task due to ${err} `
-        }));
-    })
-    .catch(err => {
-        console.log("database connection error", err);
-        callback(null, {
-            statusCode: err.statusCode || 500,
-            headers: { 'Content-Type': 'text/plain' },
-            body: 'Could not create the Task.'
-          })
-    })
+exports.deleteTask = async (event) => {
+  try {
+    await connectToDataBase();
+    const result = await Task.findByIdAndRemove(event.pathParameters.id);
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+      },
+      body: JSON.stringify(result),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+      },
+      body: "Could not make an entry.",
+    };
+  }
 };

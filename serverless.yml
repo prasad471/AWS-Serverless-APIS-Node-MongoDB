@@ -1,3 +1,5 @@
+org: prasad471
+app: my-first-app
 service: rest-api
 
 provider:
@@ -41,7 +43,7 @@ functions: # add 4 functions for CRUD
     handler: index.deleteTask
     events:
      - http:
-         path: tasks/{id} # path will be domain.name.com/dev/notes/1
+         path: tasks/{id} # path will be domain.name.com/dev/tasks/1
          method: delete
          cors: true
 
